@@ -48,7 +48,7 @@ function createBookCard(book) {
             } else {
                 readButton.textContent = "Not read";
             }
-            
+
             const label = document.createElement("p");
             label.textContent = "STATUS: "
             readDiv.appendChild(label);
@@ -129,15 +129,3 @@ addBookButton.addEventListener("click", () => {
 
     document.querySelector("body").appendChild(form);
 });
-
-
-
-
-// testing
-const book = new Book("Tittel", "forfatter", 123, true);
-const book2 = new Book("Tittel", "forfatter", 321, true);
-addBookToLibrary(book);
-addBookToLibrary(book2);
-displayAllBooks(myLibrary);
-
-console.log(book);
