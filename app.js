@@ -53,7 +53,7 @@ function createBookCard(book) {
         }
 
         const bookParagraph = document.createElement("p");
-        bookParagraph.textContent = book[property];
+        bookParagraph.textContent = property.toUpperCase() + ": " + book[property];
         bookCard.appendChild(bookParagraph);
     }
     return bookCard;
