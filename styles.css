@@ -19,3 +19,14 @@ body {
     background-color: white;
     align-items: center;
 }
+
+.add-book {
+    margin-bottom: 2rem;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+}

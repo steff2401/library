@@ -64,6 +64,50 @@ function displayAllBooks(arrayOfBooks) {
     arrayOfBooks.forEach(book => divBooks.appendChild(createBookCard(book)));
 }
 
+function displayNewBook(newBook) {
+    divBooks.appendChild(createBookCard(newBook));
+}
+
+// Adding new books
+
+const form = document.createElement("form");
+form.innerHTML = 
+    `
+    <input type="text" id="title" placeholder="Title" required>
+    <input type="text" id="author" placeholder="Author" required>
+    <input type="number" id="pages" placeholder="Pages" required>
+    <div>
+        <label>Read?</label> 
+        <input type="checkbox" id="read">
+    </div>
+    <button id="submit-button" type="submit">Submit</button>
+    `;
+
+form.addEventListener("submit", (e) => {
+
+    e.preventDefault();
+
+    const title = form.querySelector("#title").value;
+    const author = form.querySelector("#author").value;
+    const pages = form.querySelector("#pages").value;
+    const read = form.querySelector("#read").checked;
+
+    const newBook = new Book(title, author, pages, read);
+    addBookToLibrary(newBook);
+    displayNewBook(newBook);
+
+    // remove form from page after submitting
+    form.remove();
+});
+
+addBookButton.addEventListener("click", () => {
+
+    document.querySelector("body").appendChild(form);
+});
+
+
+
+
 // testing
 const book = new Book("Tittel", "forfatter", 123, true);
 const book2 = new Book("Tittel", "forfatter", 321, true);
