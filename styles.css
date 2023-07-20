@@ -20,6 +20,20 @@ body {
     align-items: center;
 }
 
+.book-card > button {
+    margin: 0.5rem;
+}
+
+.read-div {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.read-div > button {
+    max-height: 2rem;
+}
+
 .add-book {
     margin-bottom: 2rem;
 }

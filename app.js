@@ -38,6 +38,8 @@ function createBookCard(book) {
 
         if (property === "read") {
 
+            const readDiv = document.createElement("div");
+            readDiv.classList.add("read-div")
             const readButton = document.createElement("button");
 
             if (book[property]) { // true if read, else false
@@ -46,8 +48,12 @@ function createBookCard(book) {
             } else {
                 readButton.textContent = "Not read";
             }
-
-            bookCard.appendChild(readButton);
+            
+            const label = document.createElement("p");
+            label.textContent = "STATUS: "
+            readDiv.appendChild(label);
+            readDiv.appendChild(readButton);
+            bookCard.appendChild(readDiv);
             readButton.addEventListener("click", () => changeReadStatus(book, readButton));
             continue;
         }
@@ -56,6 +62,13 @@ function createBookCard(book) {
         bookParagraph.textContent = property.toUpperCase() + ": " + book[property];
         bookCard.appendChild(bookParagraph);
     }
+
+    // delete button
+    const deleteButton = document.createElement("button");
+    deleteButton.textContent = "Delete";
+    bookCard.appendChild(deleteButton);
+    deleteButton.addEventListener("click", () => deleteBook(book, bookCard, myLibrary));
+
     return bookCard;
 }
 
@@ -65,7 +78,19 @@ function displayAllBooks(arrayOfBooks) {
 }
 
 function displayNewBook(newBook) {
+
     divBooks.appendChild(createBookCard(newBook));
+}
+
+function deleteBook(book, bookCard, arrayOfBooks) {
+    // delete from HTML
+    bookCard.remove(); 
+
+    // delete from array
+    arrayOfBooks.splice(arrayOfBooks.indexOf(book), 1);
+
+    // delete object
+    delete book;
 }
 
 // Adding new books
