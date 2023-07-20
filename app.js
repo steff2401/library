@@ -1,7 +1,6 @@
 const divBooks = document.querySelector(".books");
 const addBookButton = document.querySelector(".add-book > button");
-let numberOfBooks = 0;
-let myLibrary = [];
+const myLibrary = [];
 
 function Book(title, author, pages, read) {
 
@@ -11,20 +10,19 @@ function Book(title, author, pages, read) {
     this.read = read;
 }
 
-
 function addBookToLibrary(book) {
 
     myLibrary.push(book);
 }
 
-function changeReadStatus(book, button) {
+function changeReadStatus(book, readButton) {
 
     if (book.read) {
-        button.textContent = "Not read";
+        readButton.textContent = "Not read";
         book.read = false;
 
     } else {
-        button.textContent = "Read";
+        readButton.textContent = "Read";
         book.read = true;
     }
 }
@@ -42,6 +40,10 @@ function createBookCard(book) {
             readDiv.classList.add("read-div")
             const readButton = document.createElement("button");
 
+            const readLabel = document.createElement("p");
+            readLabel.textContent = "STATUS: "
+            readDiv.appendChild(readLabel);
+
             if (book[property]) { // true if read, else false
                 readButton.textContent = "Read";
 
@@ -49,21 +51,20 @@ function createBookCard(book) {
                 readButton.textContent = "Not read";
             }
 
-            const label = document.createElement("p");
-            label.textContent = "STATUS: "
-            readDiv.appendChild(label);
             readDiv.appendChild(readButton);
             bookCard.appendChild(readDiv);
             readButton.addEventListener("click", () => changeReadStatus(book, readButton));
             continue;
-        }
 
-        const bookParagraph = document.createElement("p");
-        bookParagraph.textContent = property.toUpperCase() + ": " + book[property];
-        bookCard.appendChild(bookParagraph);
+        } else {
+
+            const bookInfo = document.createElement("p");
+            bookInfo.textContent = property.toUpperCase() + ": " + book[property];
+            bookCard.appendChild(bookInfo);
+        }
     }
 
-    // delete button
+    // add delete button to each book-card
     const deleteButton = document.createElement("button");
     deleteButton.textContent = "Delete";
     bookCard.appendChild(deleteButton);
@@ -96,13 +97,19 @@ function deleteBook(book, bookCard, arrayOfBooks) {
 // Adding new books
 
 const form = document.createElement("form");
+
+addBookButton.addEventListener("click", () => {
+
+    document.querySelector("body").appendChild(form);
+});
+
 form.innerHTML = 
     `
     <input type="text" id="title" placeholder="Title" required>
     <input type="text" id="author" placeholder="Author" required>
     <input type="number" id="pages" placeholder="Pages" required>
     <div>
-        <label>Read?</label> 
+        <label for="read">Read?</label> 
         <input type="checkbox" id="read">
     </div>
     <button id="submit-button" type="submit">Submit</button>
@@ -123,9 +130,4 @@ form.addEventListener("submit", (e) => {
 
     // remove form from page after submitting
     form.remove();
-});
-
-addBookButton.addEventListener("click", () => {
-
-    document.querySelector("body").appendChild(form);
 });
